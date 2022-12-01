@@ -1,3 +1,5 @@
+use std::time::Instant;
+
 use aoc::Solution;
 use aoc::args::{Args, part::Part, day::Day};
 use clap::Parser;
@@ -18,6 +20,8 @@ fn main() {
         Ok(inp) => inp,
         Err(err) => { println!("Error: {}", err); return },
     };
+
+    let mut start_time = Instant::now();
 
     let solver: Box<dyn Solution> = match args.day {
         Day::Day01 => solution::day01::Solution::from_lines(input),
@@ -47,8 +51,19 @@ fn main() {
         Day::Day25 => solution::day25::Solution::from_lines(input),
     };
 
-    match args.part {
+    if args.time_it {
+        eprintln!(" -- Bootstrap solver: {:?}", start_time.elapsed());
+        start_time = Instant::now();
+    }
+
+    let answer = match args.part {
         Part::Part1 => solver.part1(),
         Part::Part2 => solver.part2(),
+    };
+
+    if args.time_it {
+        eprintln!(" -- Solution: {:?}", start_time.elapsed());
     }
+
+    println!("{}", answer);
 }

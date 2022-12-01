@@ -3,13 +3,14 @@ pub struct Solution {
 }
 
 impl aoc::Solution for Solution {
-    fn part1(&self) {
-        println!("Part1: {}", self.elfs[0].sum)
+    fn part1(&self) -> String {
+        format!("{}", self.elfs[0].sum)
     }
 
-    fn part2(&self) {
+    fn part2(&self) -> String {
         let sum: i64 = self.elfs[..3].iter().map(|e| e.sum).sum();
-        println!("Part1: {}", sum)
+
+        format!("{}", sum)
     }
 }
 
@@ -51,5 +52,65 @@ impl Elf {
 
     fn finalize(&mut self) {
         self.sum = self.bars.iter().sum();
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::Elf;
+    use super::Solution;
+
+    fn lines() -> Vec<String> {
+        vec![
+            "10", "20", "60", // 90
+            "",
+            "40", "30", // 70
+            "",
+            "200", // 200
+            "",
+            "20", "20", "30", "40",  // 110
+            "",
+        ].iter().map(|c| c.to_string() ).collect()
+    }
+
+    fn input(filename: &str) -> Vec<String> {
+        match aoc::io::read_input(filename) {
+            Ok(inp) => inp,
+            Err(err) => { panic!("Error: {}", err); },
+        }
+    }
+
+    #[test]
+    fn elf_finalizer() {
+        let mut elf = Elf::new();
+        elf.add(15);
+        elf.add(20);
+        elf.add(10);
+
+        elf.finalize();
+
+        assert_eq!(elf.sum, 45);
+    }
+
+    #[test]
+    fn solution_part1() {
+        let solver = Solution::from_lines(lines());
+
+        assert_eq!(solver.part1(), format!("{}", 200));
+    }
+
+    #[test]
+    fn solution_part2() {
+        let solver = Solution::from_lines(lines());
+
+        assert_eq!(solver.part2(), format!("{}", 200 + 110 + 90));
+    }
+
+    #[test]
+    fn example1() {
+        let solver = Solution::from_lines(input("tests/fixtures/day01"));
+
+        assert_eq!(solver.part1(), format!("{}", 24000));
+        assert_eq!(solver.part2(), format!("{}", 45000));
     }
 }

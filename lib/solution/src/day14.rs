@@ -1,11 +1,11 @@
 pub struct Solution { }
 
 impl aoc::Solution for Solution {
-    fn part1(&self) {
+    fn part1(&self) -> String {
         todo!()
     }
 
-    fn part2(&self) {
+    fn part2(&self) -> String {
         todo!()
     }
 }

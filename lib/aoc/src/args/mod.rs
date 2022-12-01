@@ -9,4 +9,6 @@ pub struct Args {
     pub day: day::Day,
     #[arg(long)]
     pub part: part::Part,
+    #[arg(long, default_value_t = false)]
+    pub time_it: bool,
 }
