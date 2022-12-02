@@ -1,21 +1,20 @@
+#[derive(Default)]
 pub struct Solution {
-    elfs: Vec<Elf>,
+    elves: Vec<Elf>,
 }
 
-impl aoc::Solution for Solution {
+impl aoc::Solver for Solution {
     fn part1(&self) -> String {
-        format!("{}", self.elfs[0].sum)
+        format!("{}", self.elves[0].sum)
     }
 
     fn part2(&self) -> String {
-        let sum: i64 = self.elfs[..3].iter().map(|e| e.sum).sum();
+        let sum: i64 = self.elves[..3].iter().map(|e| e.sum).sum();
 
         format!("{}", sum)
     }
-}
 
-impl Solution {
-    pub fn from_lines(lines: Vec<String>) -> Box<dyn aoc::Solution> {
+    fn read_lines(&mut self, lines: Vec<String>) {
         let mut elfs: Vec<Elf> = Vec::new();
 
         let mut elf: Elf = Elf::new();
@@ -32,7 +31,13 @@ impl Solution {
 
         elfs.sort_by(|a, b| b.sum.cmp(&a.sum));
 
-        Box::new(Solution{ elfs })
+        self.elves = elfs
+    }
+}
+
+impl Solution {
+    pub fn new() -> Self {
+        Solution{ elves: Vec::new() }
     }
 }
 
@@ -57,8 +62,9 @@ impl Elf {
 
 #[cfg(test)]
 mod tests {
-    use super::Elf;
-    use super::Solution;
+    use aoc::Solver;
+
+    use super::{Elf, Solution};
 
     fn lines() -> Vec<String> {
         vec![
@@ -94,21 +100,24 @@ mod tests {
 
     #[test]
     fn solution_part1() {
-        let solver = Solution::from_lines(lines());
+        let mut solver = Solution::new();
+        solver.read_lines(lines());
 
         assert_eq!(solver.part1(), format!("{}", 200));
     }
 
     #[test]
     fn solution_part2() {
-        let solver = Solution::from_lines(lines());
+        let mut solver = Solution::new();
+        solver.read_lines(lines());
 
         assert_eq!(solver.part2(), format!("{}", 200 + 110 + 90));
     }
 
     #[test]
     fn example1() {
-        let solver = Solution::from_lines(input("tests/fixtures/day01"));
+        let mut solver = Solution::new();
+        solver.read_lines(input("tests/fixtures/day01"));
 
         assert_eq!(solver.part1(), format!("{}", 24000));
         assert_eq!(solver.part2(), format!("{}", 45000));

@@ -1,69 +1,86 @@
 use std::time::Instant;
 
-use aoc::Solution;
+use aoc::Solver;
 use aoc::args::{Args, part::Part, day::Day};
 use clap::Parser;
 
 fn main() {
     let args = Args::parse();
 
-    let file_path_without_part = format!("input/day{:0>2}", args.day);
-    let file_path_with_part = format!("input/day{:0>2}-part{}", args.day, args.part);
-
-    let filename = if std::path::Path::new(&file_path_with_part).exists() {
-        file_path_with_part
-    } else {
-        file_path_without_part
-    };
+    let filename = input_filename(&args.day, &args.part);
 
     let input = match aoc::io::read_input(&filename) {
         Ok(inp) => inp,
         Err(err) => { println!("Error: {}", err); return },
     };
 
+    let mut solver = get_solver(&args.day);
+
     let mut start_time = Instant::now();
-
-    let solver: Box<dyn Solution> = match args.day {
-        Day::Day01 => solution::day01::Solution::from_lines(input),
-        Day::Day02 => solution::day02::Solution::from_lines(input),
-        Day::Day03 => solution::day03::Solution::from_lines(input),
-        Day::Day04 => solution::day04::Solution::from_lines(input),
-        Day::Day05 => solution::day05::Solution::from_lines(input),
-        Day::Day06 => solution::day06::Solution::from_lines(input),
-        Day::Day07 => solution::day07::Solution::from_lines(input),
-        Day::Day08 => solution::day08::Solution::from_lines(input),
-        Day::Day09 => solution::day09::Solution::from_lines(input),
-        Day::Day10 => solution::day10::Solution::from_lines(input),
-        Day::Day11 => solution::day11::Solution::from_lines(input),
-        Day::Day12 => solution::day12::Solution::from_lines(input),
-        Day::Day13 => solution::day13::Solution::from_lines(input),
-        Day::Day14 => solution::day14::Solution::from_lines(input),
-        Day::Day15 => solution::day15::Solution::from_lines(input),
-        Day::Day16 => solution::day16::Solution::from_lines(input),
-        Day::Day17 => solution::day17::Solution::from_lines(input),
-        Day::Day18 => solution::day18::Solution::from_lines(input),
-        Day::Day19 => solution::day19::Solution::from_lines(input),
-        Day::Day20 => solution::day20::Solution::from_lines(input),
-        Day::Day21 => solution::day21::Solution::from_lines(input),
-        Day::Day22 => solution::day22::Solution::from_lines(input),
-        Day::Day23 => solution::day23::Solution::from_lines(input),
-        Day::Day24 => solution::day24::Solution::from_lines(input),
-        Day::Day25 => solution::day25::Solution::from_lines(input),
-    };
-
+    solver.read_lines(input);
     if args.time_it {
         eprintln!(" -- Bootstrap solver: {:?}", start_time.elapsed());
-        start_time = Instant::now();
     }
 
+    start_time = Instant::now();
     let answer = match args.part {
         Part::Part1 => solver.part1(),
         Part::Part2 => solver.part2(),
     };
-
     if args.time_it {
         eprintln!(" -- Solution: {:?}", start_time.elapsed());
     }
 
     println!("{}", answer);
+}
+
+fn input_filename(day: &Day, part: &Part) -> String {
+    let file_path_without_part = format!("input/day{:0>2}", day);
+    let file_path_with_part = format!("input/day{:0>2}-part{}", day, part);
+
+    if std::path::Path::new(&file_path_with_part).exists() {
+        file_path_with_part
+    } else {
+        file_path_without_part
+    }
+}
+
+fn get_solver(day: &Day) -> Box<dyn Solver> {
+    match day {
+        Day::Day01 => Box::new(solution::day01::Solution::new()),
+        Day::Day02 => Box::new(solution::day02::Solution::new()),
+        Day::Day03 => Box::new(aoc::MissingSolution::new()),
+        Day::Day04 => Box::new(aoc::MissingSolution::new()),
+        Day::Day05 => Box::new(aoc::MissingSolution::new()),
+        Day::Day06 => Box::new(aoc::MissingSolution::new()),
+        Day::Day07 => Box::new(aoc::MissingSolution::new()),
+        Day::Day08 => Box::new(aoc::MissingSolution::new()),
+        Day::Day09 => Box::new(aoc::MissingSolution::new()),
+        Day::Day10 => Box::new(aoc::MissingSolution::new()),
+        Day::Day11 => Box::new(aoc::MissingSolution::new()),
+        Day::Day12 => Box::new(aoc::MissingSolution::new()),
+        Day::Day13 => Box::new(aoc::MissingSolution::new()),
+        Day::Day14 => Box::new(aoc::MissingSolution::new()),
+        Day::Day15 => Box::new(aoc::MissingSolution::new()),
+        Day::Day16 => Box::new(aoc::MissingSolution::new()),
+        Day::Day17 => Box::new(aoc::MissingSolution::new()),
+        Day::Day18 => Box::new(aoc::MissingSolution::new()),
+        Day::Day19 => Box::new(aoc::MissingSolution::new()),
+        Day::Day20 => Box::new(aoc::MissingSolution::new()),
+        Day::Day21 => Box::new(aoc::MissingSolution::new()),
+        Day::Day22 => Box::new(aoc::MissingSolution::new()),
+        Day::Day23 => Box::new(aoc::MissingSolution::new()),
+        Day::Day24 => Box::new(aoc::MissingSolution::new()),
+        Day::Day25 => Box::new(aoc::MissingSolution::new()),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use aoc::args::{part::Part, day::Day};
+
+    #[test]
+    fn input_filename() {
+        assert_eq!(super::input_filename(&Day::Day01, &Part::Part1), "input/day01".to_string());
+    }
 }

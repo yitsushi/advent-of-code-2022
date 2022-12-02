@@ -44,10 +44,11 @@ mod tests {
         let filename = "__file_is_not_here__";
         match read_input(filename) {
             Ok(_) => {
-                panic!("file should not exist: {}", filename)
+                panic!("file should not exist: {}", filename);
             },
             Err(err) => {
-                assert_eq!(err, Error::ReadError(filename.to_string()))
+                assert_eq!(err, Error::ReadError(filename.to_string()));
+                assert_eq!(format!("{}", err), format!("unable to read file: {}", filename))
             },
         }
     }

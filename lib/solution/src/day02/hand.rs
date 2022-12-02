@@ -2,7 +2,7 @@ use std::{str::FromStr, fmt::Display};
 
 use super::outcome::Outcome;
 
-#[derive(Eq, PartialEq, Clone)]
+#[derive(Eq, PartialEq, Clone, Debug)]
 pub enum Hand {
     Rock,
     Paper,
@@ -14,9 +14,9 @@ impl FromStr for Hand {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
-            "A" | "X" => Ok(Hand::Rock),
-            "B" | "Y" => Ok(Hand::Paper),
-            "C" | "Z" => Ok(Hand::Scissors),
+            "A" => Ok(Hand::Rock),
+            "B" => Ok(Hand::Paper),
+            "C" => Ok(Hand::Scissors),
             _ => Err(format!("invalid move: {}", s))
         }
     }
@@ -66,6 +66,41 @@ impl Hand {
             Outcome::Win(Some(self.clone()))
         } else {
             Outcome::Lose(Some(self.clone()))
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use std::str::FromStr;
+
+    use super::Hand;
+
+    #[test]
+    fn score() {
+        assert_eq!(Hand::Rock.score(), 1);
+        assert_eq!(Hand::Paper.score(), 2);
+        assert_eq!(Hand::Scissors.score(), 3);
+    }
+
+    #[test]
+    fn from_str() {
+        assert_eq!(Hand::from_str("A"), Ok(Hand::Rock));
+        assert_eq!(Hand::from_str("B"), Ok(Hand::Paper));
+        assert_eq!(Hand::from_str("C"), Ok(Hand::Scissors));
+        assert_eq!(Hand::from_str("L"), Err("invalid move: L".to_string()));
+    }
+
+    #[test]
+    fn display() {
+        let cases: Vec<(Hand, String)> = vec![
+            (Hand::Rock, "Rock".into()),
+            (Hand::Paper, "Paper".into()),
+            (Hand::Scissors, "Scissors".into()),
+        ];
+
+        for (input, output) in cases {
+            assert_eq!(format!("{}", input), output);
         }
     }
 }
