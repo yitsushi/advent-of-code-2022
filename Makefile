@@ -13,6 +13,9 @@ generate_day%:
 	@mkdir lib/solution/src/day$*
 	@cp template/day_mod.rs lib/solution/src/day$*/mod.rs
 
+readme_day%:
+	python .\scripts\gen_readme.py $*
+
 codecov:
 	@rm -rf $(ROOT_DIR)/target/cov/
 	@mkdir -p $(ROOT_DIR)/target/cov/

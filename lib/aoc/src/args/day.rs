@@ -11,6 +11,7 @@ impl FromStr for Day {
     type Err = String;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let s = s.trim_start_matches('0');
         match s {
             "1" => Ok(Self::Day01),
             "2" => Ok(Self::Day02),
