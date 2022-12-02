@@ -10,15 +10,15 @@ pub trait Solver {
 pub struct MissingSolution {}
 
 impl Solver for MissingSolution {
+    fn read_lines(&mut self, _: Vec<String>) {
+        todo!()
+    }
+
     fn part1(&self) -> String {
         todo!()
     }
 
     fn part2(&self) -> String {
-        todo!()
-    }
-
-    fn read_lines(&mut self, _: Vec<String>) {
         todo!()
     }
 }

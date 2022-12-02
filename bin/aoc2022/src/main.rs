@@ -3,15 +3,24 @@ use std::time::Instant;
 use aoc::Solver;
 use aoc::args::{Args, part::Part, day::Day};
 use clap::Parser;
+use aoc::io::{Filesystem, LocalFilesystem};
 
 fn main() {
     let args = Args::parse();
+    let fs = LocalFilesystem{};
 
-    let filename = input_filename(&args.day, &args.part);
+    match run(&args, &fs) {
+        Ok(value) => println!("{}", value),
+        Err(err) => eprintln!("error: {}", err),
+    }
+}
 
-    let input = match aoc::io::read_input(&filename) {
+fn run(args: &Args, fs: &impl Filesystem) -> Result<String, String> {
+    let filename = input_filename(fs, &args.day, &args.part);
+
+    let input = match fs.read_file(&filename) {
         Ok(inp) => inp,
-        Err(err) => { println!("Error: {}", err); return },
+        Err(err) => { return Err(format!("{}", err)) },
     };
 
     let mut solver = get_solver(&args.day);
@@ -31,14 +40,14 @@ fn main() {
         eprintln!(" -- Solution: {:?}", start_time.elapsed());
     }
 
-    println!("{}", answer);
+    Ok(answer)
 }
 
-fn input_filename(day: &Day, part: &Part) -> String {
+fn input_filename(fs: &impl Filesystem, day: &Day, part: &Part) -> String {
     let file_path_without_part = format!("input/day{:0>2}", day);
     let file_path_with_part = format!("input/day{:0>2}-part{}", day, part);
 
-    if std::path::Path::new(&file_path_with_part).exists() {
+    if fs.path_exists(&file_path_with_part) {
         file_path_with_part
     } else {
         file_path_without_part
@@ -49,38 +58,102 @@ fn get_solver(day: &Day) -> Box<dyn Solver> {
     match day {
         Day::Day01 => Box::new(solution::day01::Solution::new()),
         Day::Day02 => Box::new(solution::day02::Solution::new()),
-        Day::Day03 => Box::new(aoc::MissingSolution::new()),
-        Day::Day04 => Box::new(aoc::MissingSolution::new()),
-        Day::Day05 => Box::new(aoc::MissingSolution::new()),
-        Day::Day06 => Box::new(aoc::MissingSolution::new()),
-        Day::Day07 => Box::new(aoc::MissingSolution::new()),
-        Day::Day08 => Box::new(aoc::MissingSolution::new()),
-        Day::Day09 => Box::new(aoc::MissingSolution::new()),
-        Day::Day10 => Box::new(aoc::MissingSolution::new()),
-        Day::Day11 => Box::new(aoc::MissingSolution::new()),
-        Day::Day12 => Box::new(aoc::MissingSolution::new()),
-        Day::Day13 => Box::new(aoc::MissingSolution::new()),
-        Day::Day14 => Box::new(aoc::MissingSolution::new()),
-        Day::Day15 => Box::new(aoc::MissingSolution::new()),
-        Day::Day16 => Box::new(aoc::MissingSolution::new()),
-        Day::Day17 => Box::new(aoc::MissingSolution::new()),
-        Day::Day18 => Box::new(aoc::MissingSolution::new()),
-        Day::Day19 => Box::new(aoc::MissingSolution::new()),
-        Day::Day20 => Box::new(aoc::MissingSolution::new()),
-        Day::Day21 => Box::new(aoc::MissingSolution::new()),
-        Day::Day22 => Box::new(aoc::MissingSolution::new()),
-        Day::Day23 => Box::new(aoc::MissingSolution::new()),
-        Day::Day24 => Box::new(aoc::MissingSolution::new()),
-        Day::Day25 => Box::new(aoc::MissingSolution::new()),
+        _ => Box::new(aoc::MissingSolution::new()),
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use aoc::args::{part::Part, day::Day};
+    use std::collections::HashMap;
+    use aoc::args::{part::Part, day::Day, Args};
+    use aoc::io::Error;
+    use super::Filesystem;
+
+    struct InMemoryFilesystem {
+        valid_paths: HashMap<String, Vec<String>>,
+    }
+
+    impl InMemoryFilesystem {
+        fn new() -> Self {
+            let mut map = HashMap::new();
+            map.insert(
+                "input/day01".into(),
+                vec![
+                    "100", "200",
+                    "",
+                    "20", "400",
+                    "",
+                    "100",
+                    "",
+                    "150", "30", "20",
+                    "",
+                ].iter().map(|c| c.to_string() ).collect(),
+            );
+            map.insert("input/day02-part1".into(), Vec::new());
+            map.insert("input/day02-part2".into(), Vec::new());
+
+            InMemoryFilesystem{
+                valid_paths: map,
+            }
+        }
+    }
+
+    impl Filesystem for InMemoryFilesystem {
+        fn path_exists(&self, path: &str) -> bool {
+            self.valid_paths.contains_key(path)
+        }
+
+        fn read_file(&self, path: &str) -> Result<Vec<String>, Error> {
+            match self.valid_paths.get(path) {
+                None => Err(Error::ReadError(path.to_string())),
+                Some(content) => Ok(content.clone()),
+            }
+        }
+    }
+
+    impl InMemoryFilesystem {
+        fn remove(&mut self, path: &str) {
+            self.valid_paths.remove(path);
+        }
+    }
 
     #[test]
     fn input_filename() {
-        assert_eq!(super::input_filename(&Day::Day01, &Part::Part1), "input/day01".to_string());
+        let fs = InMemoryFilesystem::new();
+
+        // No part1 and part2 files
+        assert_eq!(super::input_filename(&fs, &Day::Day01, &Part::Part1), "input/day01".to_string());
+        assert_eq!(super::input_filename(&fs, &Day::Day01, &Part::Part2), "input/day01".to_string());
+        // Has separate part1 and part2 files
+        assert_eq!(super::input_filename(&fs, &Day::Day02, &Part::Part1), "input/day02-part1".to_string());
+        assert_eq!(super::input_filename(&fs, &Day::Day02, &Part::Part2), "input/day02-part2".to_string());
+    }
+
+    #[test]
+    fn run() {
+        let args = Args{
+            day: Day::Day01,
+            part: Part::Part1,
+            time_it: false
+        };
+        let fs = InMemoryFilesystem::new();
+
+        let answer = super::run(&args, &fs);
+        assert!(!answer.is_err());
+        assert_eq!(answer.unwrap(), "420".to_string());
+    }
+
+    #[test]
+    fn run_no_input() {
+        let args = Args{
+            day: Day::Day01,
+            part: Part::Part1,
+            time_it: false
+        };
+        let mut fs = InMemoryFilesystem::new();
+        fs.remove("input/day01");
+
+        let answer = super::run(&args, &fs);
+        assert!(answer.is_err());
     }
 }

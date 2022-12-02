@@ -49,21 +49,16 @@ impl Solution {
 
 #[cfg(test)]
 mod tests {
+    use aoc::io::{Filesystem, LocalFilesystem};
     use aoc::Solver;
 
     use super::Solution;
 
-    fn input(filename: &str) -> Vec<String> {
-        match aoc::io::read_input(filename) {
-            Ok(inp) => inp,
-            Err(err) => { panic!("Error: {}", err); },
-        }
-    }
-
     #[test]
     fn example1() {
+        let fs = LocalFilesystem{};
         let mut solver = Solution::new();
-        solver.read_lines(input("tests/fixtures/day02"));
+        solver.read_lines(fs.read_file("tests/fixtures/day02").unwrap());
 
         assert_eq!(solver.part1(), format!("{}", 15));
         assert_eq!(solver.part2(), format!("{}", 12));

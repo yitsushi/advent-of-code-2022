@@ -62,6 +62,7 @@ impl Elf {
 
 #[cfg(test)]
 mod tests {
+    use aoc::io::{Filesystem, LocalFilesystem};
     use aoc::Solver;
 
     use super::{Elf, Solution};
@@ -77,13 +78,6 @@ mod tests {
             "20", "20", "30", "40",  // 110
             "",
         ].iter().map(|c| c.to_string() ).collect()
-    }
-
-    fn input(filename: &str) -> Vec<String> {
-        match aoc::io::read_input(filename) {
-            Ok(inp) => inp,
-            Err(err) => { panic!("Error: {}", err); },
-        }
     }
 
     #[test]
@@ -116,8 +110,9 @@ mod tests {
 
     #[test]
     fn example1() {
+        let fs = LocalFilesystem{};
         let mut solver = Solution::new();
-        solver.read_lines(input("tests/fixtures/day01"));
+        solver.read_lines(fs.read_file("tests/fixtures/day01").unwrap());
 
         assert_eq!(solver.part1(), format!("{}", 24000));
         assert_eq!(solver.part2(), format!("{}", 45000));

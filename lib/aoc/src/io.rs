@@ -13,23 +13,38 @@ impl Display for Error {
     }
 }
 
-pub fn read_input(filename: &str) -> Result<Vec<String>, Error> {
-    let reader = match File::open(filename) {
-        Ok(file) => BufReader::new(file),
-        Err(_) => return Err(Error::ReadError(filename.to_string())),
-    };
+pub trait Filesystem {
+    fn path_exists(&self, path: &str) -> bool;
+    fn read_file(&self, path: &str) -> Result<Vec<String>, Error>;
+}
 
-    Ok(reader.lines().filter_map(std::io::Result::ok).collect())
+pub struct LocalFilesystem {}
+
+impl Filesystem for LocalFilesystem {
+    fn path_exists(&self, path: &str) -> bool {
+        std::path::Path::new(path).exists()
+    }
+
+    fn read_file(&self, path: &str) -> Result<Vec<String>, Error> {
+        let reader = match File::open(path) {
+            Ok(file) => BufReader::new(file),
+            Err(_) => return Err(Error::ReadError(path.to_string())),
+        };
+
+        Ok(reader.lines().filter_map(std::io::Result::ok).collect())
+    }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{read_input, Error};
+    use super::{Filesystem, LocalFilesystem, Error};
 
     #[test]
     fn no_error() {
+        let fs = LocalFilesystem{};
+
         let filename = "tests/fixtures/valid_file";
-        match read_input(filename) {
+        match fs.read_file(filename) {
             Ok(input) => {
                 assert_eq!(input, vec!["something".to_string()])
             },
@@ -41,8 +56,10 @@ mod tests {
 
     #[test]
     fn file_not_found() {
+        let fs = LocalFilesystem{};
+
         let filename = "__file_is_not_here__";
-        match read_input(filename) {
+        match fs.read_file(filename) {
             Ok(_) => {
                 panic!("file should not exist: {}", filename);
             },
