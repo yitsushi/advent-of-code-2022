@@ -6,6 +6,25 @@ mod play;
 mod hand;
 mod outcome;
 
+/// # Example
+///
+/// ```
+/// use aoc::Solver;
+///
+/// let mut solver = solution::day02::Solution::new();
+/// solver.read_lines(vec![
+///     "A X",
+///     "B Y",
+///     "C Z",
+///     "A Z",
+/// ].iter().map(|s| s.to_string()).collect());
+///
+/// let part1_solution = solver.part1();
+/// let part2_solution = solver.part2();
+///
+/// # assert_eq!(part1_solution, "18".to_string());
+/// # assert_eq!(part2_solution, "23".to_string());
+/// ```
 #[derive(Default)]
 pub struct Solution {
     plays: Vec<Play>
