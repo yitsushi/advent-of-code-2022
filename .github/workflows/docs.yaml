@@ -1,10 +1,9 @@
-name: Quality Check
+name: Generate Docs
 
 on:
   push:
     branches:
       - main
-      - generate-docs
 
 jobs:
   publish:
@@ -17,7 +16,7 @@ jobs:
       - name: Install Rust
         run: rustup update stable
 
-      - name: Run tests
+      - name: Generate docs
         run: |
           cargo doc --no-deps --workspace
           cp template/pages_index.html target/doc/index.html
