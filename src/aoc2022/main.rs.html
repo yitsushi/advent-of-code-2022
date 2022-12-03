@@ -157,6 +157,7 @@
 <span id="157">157</span>
 <span id="158">158</span>
 <span id="159">159</span>
+<span id="160">160</span>
 </pre><pre class="rust"><code><span class="kw">use </span>std::time::Instant;
 
 <span class="kw">use </span>aoc::Solver;
@@ -217,6 +218,7 @@
     <span class="kw">match </span>day {
         Day::Day01 =&gt; Box::new(solution::day01::Solution::new()),
         Day::Day02 =&gt; Box::new(solution::day02::Solution::new()),
+        Day::Day03 =&gt; Box::new(solution::day03::Solution::new()),
         <span class="kw">_ </span>=&gt; Box::new(aoc::MissingSolution::new()),
     }
 }
