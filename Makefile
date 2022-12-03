@@ -14,7 +14,15 @@ generate_day%:
 	@cp template/day_mod.rs lib/solution/src/day$*/mod.rs
 
 readme_day%:
-	python .\scripts\gen_readme.py $*
+	python $(ROOT_DIR)/scripts/gen_readme.py $*
+
+docs:
+	cargo clean --doc
+	cargo doc --no-deps --workspace
+
+open_docs:
+	cargo clean --doc
+	cargo doc --no-deps --workspace --open
 
 codecov:
 	@rm -rf $(ROOT_DIR)/target/cov/

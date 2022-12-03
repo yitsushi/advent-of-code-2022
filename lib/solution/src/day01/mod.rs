@@ -1,3 +1,24 @@
+/// # Example
+///
+/// ```
+/// use aoc::Solver;
+///
+/// let mut solver = solution::day01::Solution::new();
+/// solver.read_lines(vec![
+///     "10", "20",
+///     "",
+///     "40", "20",
+///     "",
+///     "10", "15",
+///     "",
+/// ].iter().map(|s| s.to_string()).collect());
+///
+/// let part1_solution = solver.part1();
+/// let part2_solution = solver.part2();
+///
+/// # assert_eq!(part1_solution, "60".to_string());
+/// # assert_eq!(part2_solution, "115".to_string());
+/// ```
 #[derive(Default)]
 pub struct Solution {
     elves: Vec<Elf>,

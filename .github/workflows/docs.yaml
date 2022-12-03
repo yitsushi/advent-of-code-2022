@@ -1,0 +1,29 @@
+name: Quality Check
+
+on:
+  push:
+    branches:
+      - main
+      - generate-docs
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      CARGO_TERM_COLOR: always
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Rust
+        run: rustup update stable
+
+      - name: Run tests
+        run: |
+          cargo doc --no-deps --workspace
+          cp template/pages_index.html target/doc/index.html
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/doc
