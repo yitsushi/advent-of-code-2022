@@ -6,6 +6,13 @@ mod play;
 mod hand;
 mod outcome;
 
+/// Day 2: Rock Paper Scissors
+///
+/// What would your total score be if everything goes exactly according to your
+/// strategy guide?
+///
+/// URL: <https://adventofcode.com/2022/day/2>
+///
 /// # Example
 ///
 /// ```
@@ -21,9 +28,6 @@ mod outcome;
 ///
 /// let part1_solution = solver.part1();
 /// let part2_solution = solver.part2();
-///
-/// # assert_eq!(part1_solution, "18".to_string());
-/// # assert_eq!(part2_solution, "23".to_string());
 /// ```
 #[derive(Default)]
 pub struct Solution {
@@ -31,6 +35,15 @@ pub struct Solution {
 }
 
 impl aoc::Solver for Solution {
+    fn read_lines(&mut self, lines: Vec<String>) {
+        let plays: Vec<Play> = lines
+            .iter()
+            .map(|s| { Play::from_str(s).expect("input parse error") })
+            .collect();
+
+        self.plays = plays
+    }
+
     fn part1(&self) -> String {
         let score: i32 = self.plays
             .iter()
@@ -47,15 +60,6 @@ impl aoc::Solver for Solution {
             .sum();
 
         score.to_string()
-    }
-
-    fn read_lines(&mut self, lines: Vec<String>) {
-        let plays: Vec<Play> = lines
-            .iter()
-            .map(|s| { Play::from_str(s).expect("input parse error") })
-            .collect();
-
-        self.plays = plays
     }
 }
 

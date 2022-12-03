@@ -1,5 +1,36 @@
 use std::collections::HashSet;
 
+/// Day 3: Rucksack Reorganization
+///
+/// Find the item type that appears in both compartments of each rucksack.
+/// What is the sum of the priorities of those item types?
+///
+/// URL: <https://adventofcode.com/2022/day/3>
+///
+/// # Panics
+///
+/// Part2 will panic if the input is empty as it tries to get the first item
+/// from the list and the following two to get group of three sacks. It is not
+/// checked if we have enough sacks to do that.
+///
+/// # Example
+///
+/// ```
+/// use aoc::Solver;
+///
+/// let mut solver = solution::day03::Solution::new();
+/// solver.read_lines(vec![
+///     "vJrwpWtwJgWrhcsFMMfFFhFp",
+///     "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL",
+///     "PmmdzqPrVvPwwTWBwg",
+///     "wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn",
+///     "ttgJtRGJQctTZtZT",
+///     "CrZsJsPPZsGzwwsLwLmpwMDw",
+/// ].iter().map(|s| s.to_string()).collect());
+///
+/// let part1_solution = solver.part1();
+/// let part2_solution = solver.part2();
+/// ```
 #[derive(Default)]
 pub struct Solution {
     rucksacks: Vec<Rucksack>,

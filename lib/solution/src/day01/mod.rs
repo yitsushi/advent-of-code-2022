@@ -1,3 +1,10 @@
+/// Day 1: Calorie Counting
+///
+/// Find the Elf carrying the most Calories. How many total Calories is that
+/// Elf carrying?
+///
+/// URL: <https://adventofcode.com/2022/day/1>
+///
 /// # Example
 ///
 /// ```
@@ -15,9 +22,6 @@
 ///
 /// let part1_solution = solver.part1();
 /// let part2_solution = solver.part2();
-///
-/// # assert_eq!(part1_solution, "60".to_string());
-/// # assert_eq!(part2_solution, "115".to_string());
 /// ```
 #[derive(Default)]
 pub struct Solution {
@@ -25,16 +29,6 @@ pub struct Solution {
 }
 
 impl aoc::Solver for Solution {
-    fn part1(&self) -> String {
-        format!("{}", self.elves[0].sum)
-    }
-
-    fn part2(&self) -> String {
-        let sum: i64 = self.elves[..3].iter().map(|e| e.sum).sum();
-
-        format!("{}", sum)
-    }
-
     fn read_lines(&mut self, lines: Vec<String>) {
         let mut elfs: Vec<Elf> = Vec::new();
 
@@ -54,29 +48,57 @@ impl aoc::Solver for Solution {
 
         self.elves = elfs
     }
+
+    fn part1(&self) -> String {
+        format!("{}", self.elves[0].sum)
+    }
+
+    fn part2(&self) -> String {
+        let sum: i64 = self.elves[..3].iter().map(|e| e.sum).sum();
+
+        format!("{}", sum)
+    }
 }
 
 impl Solution {
+    /// New empty solution.
     pub fn new() -> Self {
         Solution{ elves: Vec::new() }
     }
 }
 
-struct Elf {
+/// Elf with calories
+///
+/// # Example
+///
+/// ```
+/// let mut elf = solution::day01::Elf::new();
+///
+/// elf.add(20);
+/// elf.add(50);
+/// elf.finalize();
+///
+/// assert_eq!(elf.sum, 70);
+/// ```
+#[derive(Default)]
+pub struct Elf {
     bars: Vec<i64>,
-    sum: i64,
+    pub sum: i64,
 }
 
 impl Elf {
-    fn new() -> Elf {
+    pub fn new() -> Elf {
         Elf { bars: Vec::new(), sum: 0, }
     }
 
-    fn add(&mut self, value: i64) {
+    /// Add calorie value to the Elf.
+    pub fn add(&mut self, value: i64) {
         self.bars.push(value)
     }
 
-    fn finalize(&mut self) {
+    /// Finalize `sum`. It can be called multiple times, but without
+    /// calling `finalize`, the value of `sum` will not be updated.
+    pub fn finalize(&mut self) {
         self.sum = self.bars.iter().sum();
     }
 }
