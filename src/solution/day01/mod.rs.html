@@ -139,7 +139,36 @@
 <span id="139">139</span>
 <span id="140">140</span>
 <span id="141">141</span>
-</pre><pre class="rust"><code><span class="doccomment">/// # Example
+<span id="142">142</span>
+<span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+</pre><pre class="rust"><code><span class="doccomment">/// Day 1: Calorie Counting
+///
+/// Find the Elf carrying the most Calories. How many total Calories is that
+/// Elf carrying?
+///
+/// URL: &lt;https://adventofcode.com/2022/day/1&gt;
+///
+/// # Example
 ///
 /// ```
 /// use aoc::Solver;
@@ -156,9 +185,6 @@
 ///
 /// let part1_solution = solver.part1();
 /// let part2_solution = solver.part2();
-///
-/// # assert_eq!(part1_solution, &quot;60&quot;.to_string());
-/// # assert_eq!(part2_solution, &quot;115&quot;.to_string());
 /// ```
 </span><span class="attribute">#[derive(Default)]
 </span><span class="kw">pub struct </span>Solution {
@@ -166,16 +192,6 @@
 }
 
 <span class="kw">impl </span>aoc::Solver <span class="kw">for </span>Solution {
-    <span class="kw">fn </span>part1(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
-        <span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="self">self</span>.elves[<span class="number">0</span>].sum)
-    }
-
-    <span class="kw">fn </span>part2(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
-        <span class="kw">let </span>sum: i64 = <span class="self">self</span>.elves[..<span class="number">3</span>].iter().map(|e| e.sum).sum();
-
-        <span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, sum)
-    }
-
     <span class="kw">fn </span>read_lines(<span class="kw-2">&amp;mut </span><span class="self">self</span>, lines: Vec&lt;String&gt;) {
         <span class="kw">let </span><span class="kw-2">mut </span>elfs: Vec&lt;Elf&gt; = Vec::new();
 
@@ -195,29 +211,57 @@
 
         <span class="self">self</span>.elves = elfs
     }
+
+    <span class="kw">fn </span>part1(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
+        <span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="self">self</span>.elves[<span class="number">0</span>].sum)
+    }
+
+    <span class="kw">fn </span>part2(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
+        <span class="kw">let </span>sum: i64 = <span class="self">self</span>.elves[..<span class="number">3</span>].iter().map(|e| e.sum).sum();
+
+        <span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, sum)
+    }
 }
 
 <span class="kw">impl </span>Solution {
-    <span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
+    <span class="doccomment">/// New empty solution.
+    </span><span class="kw">pub fn </span>new() -&gt; <span class="self">Self </span>{
         Solution{ elves: Vec::new() }
     }
 }
 
-<span class="kw">struct </span>Elf {
+<span class="doccomment">/// Elf with calories
+///
+/// # Example
+///
+/// ```
+/// let mut elf = solution::day01::Elf::new();
+///
+/// elf.add(20);
+/// elf.add(50);
+/// elf.finalize();
+///
+/// assert_eq!(elf.sum, 70);
+/// ```
+</span><span class="attribute">#[derive(Default)]
+</span><span class="kw">pub struct </span>Elf {
     bars: Vec&lt;i64&gt;,
-    sum: i64,
+    <span class="kw">pub </span>sum: i64,
 }
 
 <span class="kw">impl </span>Elf {
-    <span class="kw">fn </span>new() -&gt; Elf {
+    <span class="kw">pub fn </span>new() -&gt; Elf {
         Elf { bars: Vec::new(), sum: <span class="number">0</span>, }
     }
 
-    <span class="kw">fn </span>add(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) {
+    <span class="doccomment">/// Add calorie value to the Elf.
+    </span><span class="kw">pub fn </span>add(<span class="kw-2">&amp;mut </span><span class="self">self</span>, value: i64) {
         <span class="self">self</span>.bars.push(value)
     }
 
-    <span class="kw">fn </span>finalize(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+    <span class="doccomment">/// Finalize `sum`. It can be called multiple times, but without
+    /// calling `finalize`, the value of `sum` will not be updated.
+    </span><span class="kw">pub fn </span>finalize(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.sum = <span class="self">self</span>.bars.iter().sum();
     }
 }

@@ -141,9 +141,71 @@
 <span id="141">141</span>
 <span id="142">142</span>
 <span id="143">143</span>
+<span id="144">144</span>
+<span id="145">145</span>
+<span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
 </pre><pre class="rust"><code><span class="kw">use </span>std::collections::HashSet;
 
-<span class="attribute">#[derive(Default)]
+<span class="doccomment">/// Day 3: Rucksack Reorganization
+///
+/// Find the item type that appears in both compartments of each rucksack.
+/// What is the sum of the priorities of those item types?
+///
+/// URL: &lt;https://adventofcode.com/2022/day/3&gt;
+///
+/// # Panics
+///
+/// Part2 will panic if the input is empty as it tries to get the first item
+/// from the list and the following two to get group of three sacks. It is not
+/// checked if we have enough sacks to do that.
+///
+/// # Example
+///
+/// ```
+/// use aoc::Solver;
+///
+/// let mut solver = solution::day03::Solution::new();
+/// solver.read_lines(vec![
+///     &quot;vJrwpWtwJgWrhcsFMMfFFhFp&quot;,
+///     &quot;jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL&quot;,
+///     &quot;PmmdzqPrVvPwwTWBwg&quot;,
+///     &quot;wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn&quot;,
+///     &quot;ttgJtRGJQctTZtZT&quot;,
+///     &quot;CrZsJsPPZsGzwwsLwLmpwMDw&quot;,
+/// ].iter().map(|s| s.to_string()).collect());
+///
+/// let part1_solution = solver.part1();
+/// let part2_solution = solver.part2();
+/// ```
+</span><span class="attribute">#[derive(Default)]
 </span><span class="kw">pub struct </span>Solution {
     rucksacks: Vec&lt;Rucksack&gt;,
 }
