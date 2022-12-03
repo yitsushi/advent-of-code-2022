@@ -3,6 +3,17 @@
 [![codecov](https://codecov.io/gh/yitsushi/advent-of-code-2022/branch/main/graph/badge.svg)](https://codecov.io/gh/yitsushi/advent-of-code-2022)
 [![Quality Check](https://github.com/yitsushi/advent-of-code-2022/actions/workflows/quality-check.yaml/badge.svg)](https://github.com/yitsushi/advent-of-code-2022/actions/workflows/quality-check.yaml)
 
+First of all, I have no idea what I'm doing. I like challenges and doing Advent
+of Code using a language I barely know, well that's the perfect challenge and
+opportunity to learn. The commit history can be a good journal about my journey
+with rust, however don't take any of this as a good practice. I really don't know
+how a rust developer works in the wild, this project structure is totally an
+opinionated structure, and the produced code is definitely not a professional
+rust code, don't copy it and take it as "that's how to do it". Technically you
+can copy it and I have no objections if you understand **I take zero
+responsibilities if you break anything in production**, or you get a lot of
+down votes on StackOverflow because you copied something that shouldn't exist.
+
 ## Run
 
 ```bash
