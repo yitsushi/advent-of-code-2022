@@ -58,6 +58,7 @@ fn get_solver(day: &Day) -> Box<dyn Solver> {
     match day {
         Day::Day01 => Box::new(solution::day01::Solution::new()),
         Day::Day02 => Box::new(solution::day02::Solution::new()),
+        Day::Day03 => Box::new(solution::day03::Solution::new()),
         _ => Box::new(aoc::MissingSolution::new()),
     }
 }
