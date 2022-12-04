@@ -10,8 +10,7 @@ test:
 	cargo test --workspace
 
 generate_day%:
-	@mkdir lib/solution/src/day$*
-	@cp template/day_mod.rs lib/solution/src/day$*/mod.rs
+	python $(ROOT_DIR)/scripts/gen_day.py $*
 
 readme_day%:
 	python $(ROOT_DIR)/scripts/gen_readme.py $*

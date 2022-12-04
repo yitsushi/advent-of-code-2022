@@ -37,6 +37,10 @@ pub struct Solution {
 }
 
 impl aoc::Solver for Solution {
+    fn name(&self) -> &'static str {
+        "day03::Solution"
+    }
+
     fn read_lines(&mut self, lines: Vec<String>) {
         for line in lines {
             let compartment_length = line.len() / 2;
@@ -82,8 +86,9 @@ impl aoc::Solver for Solution {
 }
 
 impl Solution {
+    /// New empty solution.
     pub fn new() -> Self {
-        Solution{ rucksacks: Vec::new() }
+        Self::default()
     }
 }
 
@@ -133,6 +138,11 @@ mod tests {
     use aoc::Solver;
 
     use super::Solution;
+
+    #[test]
+    fn name() {
+        assert_eq!(Solution::new().name(), "day03::Solution")
+    }
 
     #[test]
     fn example1() {

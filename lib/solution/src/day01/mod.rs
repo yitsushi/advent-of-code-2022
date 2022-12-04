@@ -29,6 +29,10 @@ pub struct Solution {
 }
 
 impl aoc::Solver for Solution {
+    fn name(&self) -> &'static str {
+        "day01::Solution"
+    }
+
     fn read_lines(&mut self, lines: Vec<String>) {
         let mut elfs: Vec<Elf> = Vec::new();
 
@@ -63,7 +67,7 @@ impl aoc::Solver for Solution {
 impl Solution {
     /// New empty solution.
     pub fn new() -> Self {
-        Solution{ elves: Vec::new() }
+        Self::default()
     }
 }
 
@@ -109,6 +113,11 @@ mod tests {
     use aoc::Solver;
 
     use super::{Elf, Solution};
+
+    #[test]
+    fn name() {
+        assert_eq!(Solution::new().name(), "day01::Solution")
+    }
 
     fn lines() -> Vec<String> {
         vec![

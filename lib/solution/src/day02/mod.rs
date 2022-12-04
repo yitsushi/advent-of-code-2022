@@ -35,6 +35,10 @@ pub struct Solution {
 }
 
 impl aoc::Solver for Solution {
+    fn name(&self) -> &'static str {
+        "day02::Solution"
+    }
+
     fn read_lines(&mut self, lines: Vec<String>) {
         let plays: Vec<Play> = lines
             .iter()
@@ -64,11 +68,11 @@ impl aoc::Solver for Solution {
 }
 
 impl Solution {
+    /// New empty solution.
     pub fn new() -> Self {
-        Solution{ plays: Vec::new() }
+        Self::default()
     }
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -76,6 +80,11 @@ mod tests {
     use aoc::Solver;
 
     use super::Solution;
+
+    #[test]
+    fn name() {
+        assert_eq!(Solution::new().name(), "day02::Solution")
+    }
 
     #[test]
     fn example1() {
