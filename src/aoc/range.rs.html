@@ -128,8 +128,10 @@
 <span id="128">128</span>
 <span id="129">129</span>
 <span id="130">130</span>
+<span id="131">131</span>
 </pre><pre class="rust"><code><span class="kw">use </span>std::str::FromStr;
 <span class="kw">use </span>std::cmp::PartialOrd;
+<span class="kw">use </span>num::PrimInt;
 
 <span class="attribute">#[derive(Debug, PartialEq, Eq, Clone)]
 </span><span class="kw">pub struct </span>Range&lt;T&gt;(T, T);
@@ -161,28 +163,28 @@
     }
 }
 
-<span class="kw">impl </span>Range&lt;i32&gt; {
-    <span class="kw">pub fn </span>new(from: i32, to: i32) -&gt; <span class="self">Self </span>{
+<span class="kw">impl</span>&lt;T: PrimInt&gt; Range&lt;T&gt; {
+    <span class="kw">pub fn </span>new(from: T, to: T) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>(from, to)
     }
 
-    <span class="kw">pub fn </span>from(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+    <span class="kw">pub fn </span>from(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; T {
         <span class="self">self</span>.<span class="number">0
     </span>}
 
-    <span class="kw">pub fn </span>to(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
+    <span class="kw">pub fn </span>to(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; T {
         <span class="self">self</span>.<span class="number">1
     </span>}
 
-    <span class="kw">pub fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; i32 {
-        <span class="number">1 </span>+ <span class="self">self</span>.to() - <span class="self">self</span>.from()
+    <span class="kw">pub fn </span>size(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; T {
+        T::one() + <span class="self">self</span>.to() - <span class="self">self</span>.from()
     }
 
-    <span class="kw">pub fn </span>contains(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Range&lt;i32&gt;) -&gt; bool {
+    <span class="kw">pub fn </span>contains(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Range&lt;T&gt;) -&gt; bool {
         <span class="self">self</span>.from() &lt;= other.from() &amp;&amp; <span class="self">self</span>.to() &gt;= other.to()
     }
 
-    <span class="kw">pub fn </span>overlap(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Range&lt;i32&gt;) -&gt; bool {
+    <span class="kw">pub fn </span>overlap(<span class="kw-2">&amp;</span><span class="self">self</span>, other: <span class="kw-2">&amp;</span>Range&lt;T&gt;) -&gt; bool {
         (<span class="self">self</span>.to() &gt;= other.from() &amp;&amp; <span class="self">self</span>.from() &lt; other.from())
             || (<span class="self">self</span>.from() &lt;= other.to() &amp;&amp; <span class="self">self</span>.to() &gt;= other.to())
             || <span class="self">self</span>.contains(other) || other.contains(<span class="self">self</span>)
@@ -221,7 +223,7 @@
         ];
 
         <span class="kw">for </span>case <span class="kw">in </span>cases {
-            <span class="kw">let </span>range = Range::from_str(case.<span class="number">0</span>).expect(<span class="string">&quot;failed to parse case&quot;</span>);
+            <span class="kw">let </span>range: Range&lt;i32&gt; = Range::from_str(case.<span class="number">0</span>).expect(<span class="string">&quot;failed to parse case&quot;</span>);
             <span class="macro">assert_eq!</span>(range.size(), case.<span class="number">1</span>)
         }
     }
@@ -234,8 +236,8 @@
         ];
 
         <span class="kw">for </span>case <span class="kw">in </span>cases {
-            <span class="kw">let </span>range1 = Range::from_str(case.<span class="number">0</span>).expect(<span class="string">&quot;failed to parse case&quot;</span>);
-            <span class="kw">let </span>range2 = Range::from_str(case.<span class="number">1</span>).expect(<span class="string">&quot;failed to parse case&quot;</span>);
+            <span class="kw">let </span>range1: Range&lt;i32&gt; = Range::from_str(case.<span class="number">0</span>).expect(<span class="string">&quot;failed to parse case&quot;</span>);
+            <span class="kw">let </span>range2: Range&lt;i32&gt; = Range::from_str(case.<span class="number">1</span>).expect(<span class="string">&quot;failed to parse case&quot;</span>);
             <span class="macro">assert_eq!</span>(range1.contains(<span class="kw-2">&amp;</span>range2), case.<span class="number">2</span>, <span class="string">&quot;({}).contains({}) should be {}&quot;</span>, case.<span class="number">0</span>, case.<span class="number">1</span>, case.<span class="number">2</span>);
         }
     }
@@ -252,8 +254,8 @@
         ];
 
         <span class="kw">for </span>case <span class="kw">in </span>cases {
-            <span class="kw">let </span>range1 = Range::from_str(case.<span class="number">0</span>).expect(<span class="string">&quot;failed to parse case&quot;</span>);
-            <span class="kw">let </span>range2 = Range::from_str(case.<span class="number">1</span>).expect(<span class="string">&quot;failed to parse case&quot;</span>);
+            <span class="kw">let </span>range1: Range&lt;i32&gt; = Range::from_str(case.<span class="number">0</span>).expect(<span class="string">&quot;failed to parse case&quot;</span>);
+            <span class="kw">let </span>range2: Range&lt;i32&gt; = Range::from_str(case.<span class="number">1</span>).expect(<span class="string">&quot;failed to parse case&quot;</span>);
             <span class="macro">assert_eq!</span>(range1.overlap(<span class="kw-2">&amp;</span>range2), case.<span class="number">2</span>, <span class="string">&quot;({}).overlap({}) should be {}&quot;</span>, case.<span class="number">0</span>, case.<span class="number">1</span>, case.<span class="number">2</span>);
         }
     }
