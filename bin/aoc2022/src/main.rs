@@ -16,7 +16,10 @@ fn main() {
 }
 
 fn run(args: &Args, fs: &impl Filesystem) -> Result<String, String> {
-    let filename = input_filename(fs, &args.day, &args.part);
+    let filename = match &args.input {
+        Some(name) => name.clone(),
+        None => input_filename(fs, &args.day, &args.part)
+    };
 
     let input = match fs.read_file(&filename) {
         Ok(inp) => inp,
@@ -59,6 +62,7 @@ fn get_solver(day: &Day) -> Box<dyn Solver> {
         Day::Day01 => Box::new(solution::day01::Solution::new()),
         Day::Day02 => Box::new(solution::day02::Solution::new()),
         Day::Day03 => Box::new(solution::day03::Solution::new()),
+        Day::Day04 => Box::new(solution::day04::Solution::new()),
         _ => Box::new(aoc::MissingSolution::new()),
     }
 }
@@ -116,6 +120,10 @@ mod tests {
         fn remove(&mut self, path: &str) {
             self.valid_paths.remove(path);
         }
+
+        fn add(&mut self, path: String, content: Vec<String>) {
+            self.valid_paths.insert(path, content);
+        }
     }
 
     #[test]
@@ -135,7 +143,8 @@ mod tests {
         let args = Args{
             day: Day::Day01,
             part: Part::Part1,
-            time_it: false
+            time_it: false,
+            input: None,
         };
         let fs = InMemoryFilesystem::new();
 
@@ -149,10 +158,41 @@ mod tests {
         let args = Args{
             day: Day::Day01,
             part: Part::Part1,
-            time_it: false
+            time_it: false,
+            input: None,
         };
         let mut fs = InMemoryFilesystem::new();
         fs.remove("input/day01");
+
+        let answer = super::run(&args, &fs);
+        assert!(answer.is_err());
+    }
+
+    #[test]
+    fn run_custom_input() {
+        let args = Args{
+            day: Day::Day02,
+            part: Part::Part1,
+            time_it: false,
+            input: Some("input/random".into()),
+        };
+        let mut fs = InMemoryFilesystem::new();
+        fs.add("input/random".into(), Vec::new());
+
+        let answer = super::run(&args, &fs);
+        assert!(!answer.is_err());
+        assert_eq!(answer.unwrap(), "0".to_string());
+    }
+
+    #[test]
+    fn run_custom_input_no_input() {
+        let args = Args{
+            day: Day::Day01,
+            part: Part::Part1,
+            time_it: false,
+            input: Some("input/random".into()),
+        };
+        let fs = InMemoryFilesystem::new();
 
         let answer = super::run(&args, &fs);
         assert!(answer.is_err());

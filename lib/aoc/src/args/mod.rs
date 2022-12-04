@@ -11,4 +11,6 @@ pub struct Args {
     pub part: part::Part,
     #[arg(long, default_value_t = false)]
     pub time_it: bool,
+    #[arg(long)]
+    pub input: Option<String>
 }
