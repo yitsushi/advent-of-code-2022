@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":[["args",""],["io",""]],"struct":[["MissingSolution",""]],"trait":[["Solver",""]]};
+window.SIDEBAR_ITEMS = {"mod":[["args",""],["io",""],["range",""],["range_pair",""]],"struct":[["MissingSolution",""]],"trait":[["Solver",""]]};

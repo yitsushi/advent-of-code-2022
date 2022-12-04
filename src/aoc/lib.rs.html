@@ -53,8 +53,16 @@
 <span id="53">53</span>
 <span id="54">54</span>
 <span id="55">55</span>
-</pre><pre class="rust"><code><span class="kw">pub mod </span>args;
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+</pre><pre class="rust"><code><span class="kw">extern crate </span>core;
+
+<span class="kw">pub mod </span>args;
 <span class="kw">pub mod </span>io;
+<span class="kw">pub mod </span>range;
+<span class="kw">pub mod </span>range_pair;
 
 <span class="kw">pub trait </span>Solver {
     <span class="kw">fn </span>read_lines(<span class="kw-2">&amp;mut </span><span class="self">self</span>, lines: Vec&lt;String&gt;);
