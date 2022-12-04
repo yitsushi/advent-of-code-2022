@@ -1,5 +1,6 @@
 use std::str::FromStr;
 use std::cmp::PartialOrd;
+use num::PrimInt;
 
 #[derive(Debug, PartialEq, Eq, Clone)]
 pub struct Range<T>(T, T);
@@ -31,28 +32,28 @@ impl<T: PartialOrd + FromStr> FromStr for Range<T> {
     }
 }
 
-impl Range<i32> {
-    pub fn new(from: i32, to: i32) -> Self {
+impl<T: PrimInt> Range<T> {
+    pub fn new(from: T, to: T) -> Self {
         Self(from, to)
     }
 
-    pub fn from(&self) -> i32 {
+    pub fn from(&self) -> T {
         self.0
     }
 
-    pub fn to(&self) -> i32 {
+    pub fn to(&self) -> T {
         self.1
     }
 
-    pub fn size(&self) -> i32 {
-        1 + self.to() - self.from()
+    pub fn size(&self) -> T {
+        T::one() + self.to() - self.from()
     }
 
-    pub fn contains(&self, other: &Range<i32>) -> bool {
+    pub fn contains(&self, other: &Range<T>) -> bool {
         self.from() <= other.from() && self.to() >= other.to()
     }
 
-    pub fn overlap(&self, other: &Range<i32>) -> bool {
+    pub fn overlap(&self, other: &Range<T>) -> bool {
         (self.to() >= other.from() && self.from() < other.from())
             || (self.from() <= other.to() && self.to() >= other.to())
             || self.contains(other) || other.contains(self)
@@ -91,7 +92,7 @@ mod tests {
         ];
 
         for case in cases {
-            let range = Range::from_str(case.0).expect("failed to parse case");
+            let range: Range<i32> = Range::from_str(case.0).expect("failed to parse case");
             assert_eq!(range.size(), case.1)
         }
     }
@@ -104,8 +105,8 @@ mod tests {
         ];
 
         for case in cases {
-            let range1 = Range::from_str(case.0).expect("failed to parse case");
-            let range2 = Range::from_str(case.1).expect("failed to parse case");
+            let range1: Range<i32> = Range::from_str(case.0).expect("failed to parse case");
+            let range2: Range<i32> = Range::from_str(case.1).expect("failed to parse case");
             assert_eq!(range1.contains(&range2), case.2, "({}).contains({}) should be {}", case.0, case.1, case.2);
         }
     }
@@ -122,8 +123,8 @@ mod tests {
         ];
 
         for case in cases {
-            let range1 = Range::from_str(case.0).expect("failed to parse case");
-            let range2 = Range::from_str(case.1).expect("failed to parse case");
+            let range1: Range<i32> = Range::from_str(case.0).expect("failed to parse case");
+            let range2: Range<i32> = Range::from_str(case.1).expect("failed to parse case");
             assert_eq!(range1.overlap(&range2), case.2, "({}).overlap({}) should be {}", case.0, case.1, case.2);
         }
     }

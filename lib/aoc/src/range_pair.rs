@@ -1,5 +1,6 @@
 use std::str::FromStr;
 use crate::range::Range;
+use num::PrimInt;
 
 #[derive(Debug, PartialEq, Eq)]
 pub struct RangePair<T>(Range<T>, Range<T>);
@@ -27,16 +28,16 @@ impl<T: PartialOrd + FromStr> FromStr for RangePair<T> {
     }
 }
 
-impl RangePair<i32> {
-    pub fn fst(&self) -> &Range<i32> {
+impl<T: PrimInt> RangePair<T> {
+    pub fn fst(&self) -> &Range<T> {
         &self.0
     }
 
-    pub fn snd(&self) -> &Range<i32> {
+    pub fn snd(&self) -> &Range<T> {
         &self.1
     }
 
-    pub fn useless(&self) -> Option<Range<i32>> {
+    pub fn useless(&self) -> Option<Range<T>> {
         if self.fst().contains(self.snd()) {
             return Some(self.snd().clone())
         }
