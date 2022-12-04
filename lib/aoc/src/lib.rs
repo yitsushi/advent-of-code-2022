@@ -1,5 +1,9 @@
+extern crate core;
+
 pub mod args;
 pub mod io;
+pub mod range;
+pub mod range_pair;
 
 pub trait Solver {
     fn read_lines(&mut self, lines: Vec<String>);
