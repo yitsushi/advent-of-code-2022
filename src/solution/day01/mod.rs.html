@@ -170,6 +170,14 @@
 <span id="170">170</span>
 <span id="171">171</span>
 <span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
 </pre><pre class="rust"><code><span class="doccomment">/// Day 1: Calorie Counting
 ///
 /// Find the Elf carrying the most Calories. How many total Calories is that
@@ -225,11 +233,11 @@
         <span class="self">self</span>.elves = elfs
     }
 
-    <span class="kw">fn </span>part1(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
+    <span class="kw">fn </span>part1(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; String {
         <span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="self">self</span>.elves[<span class="number">0</span>].sum)
     }
 
-    <span class="kw">fn </span>part2(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
+    <span class="kw">fn </span>part2(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; String {
         <span class="kw">let </span>sum: i64 = <span class="self">self</span>.elves[..<span class="number">3</span>].iter().map(|e| e.sum).sum();
 
         <span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, sum)
@@ -333,12 +341,20 @@
     }
 
     <span class="attribute">#[test]
-    </span><span class="kw">fn </span>example1() {
+    </span><span class="kw">fn </span>example1_part1() {
         <span class="kw">let </span>fs = LocalFilesystem{};
         <span class="kw">let </span><span class="kw-2">mut </span>solver = Solution::new();
         solver.read_lines(fs.read_file(<span class="string">&quot;tests/fixtures/day01&quot;</span>).unwrap());
 
         <span class="macro">assert_eq!</span>(solver.part1(), <span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="number">24000</span>));
+    }
+
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>example1_part2() {
+        <span class="kw">let </span>fs = LocalFilesystem{};
+        <span class="kw">let </span><span class="kw-2">mut </span>solver = Solution::new();
+        solver.read_lines(fs.read_file(<span class="string">&quot;tests/fixtures/day01&quot;</span>).unwrap());
+
         <span class="macro">assert_eq!</span>(solver.part2(), <span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="number">45000</span>));
     }
 }

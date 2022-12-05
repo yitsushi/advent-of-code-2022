@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"mod":[["day01",""],["day02",""],["day03",""],["day04",""]]};
+window.SIDEBAR_ITEMS = {"mod":[["day01",""],["day02",""],["day03",""],["day04",""],["day05",""]]};

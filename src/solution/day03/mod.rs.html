@@ -182,6 +182,14 @@
 <span id="182">182</span>
 <span id="183">183</span>
 <span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
 </pre><pre class="rust"><code><span class="kw">use </span>std::collections::HashSet;
 
 <span class="doccomment">/// Day 3: Rucksack Reorganization
@@ -238,7 +246,7 @@
         }
     }
 
-    <span class="kw">fn </span>part1(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
+    <span class="kw">fn </span>part1(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; String {
         <span class="kw">let </span>result: i32 = <span class="self">self</span>.rucksacks
             .iter()
             .map(|sack| sack.misplaced_items())
@@ -249,7 +257,7 @@
         <span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, result)
     }
 
-    <span class="kw">fn </span>part2(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
+    <span class="kw">fn </span>part2(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; String {
         <span class="kw">let </span><span class="kw-2">mut </span>chunks: Vec&lt;Vec&lt;Rucksack&gt;&gt; = Vec::new();
 
         <span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..(<span class="self">self</span>.rucksacks.len()/<span class="number">3</span>) {
@@ -329,12 +337,20 @@
     }
 
     <span class="attribute">#[test]
-    </span><span class="kw">fn </span>example1() {
+    </span><span class="kw">fn </span>example1_part1() {
         <span class="kw">let </span>fs = LocalFilesystem{};
         <span class="kw">let </span><span class="kw-2">mut </span>solver = Solution::new();
         solver.read_lines(fs.read_file(<span class="string">&quot;tests/fixtures/day03&quot;</span>).unwrap());
 
         <span class="macro">assert_eq!</span>(solver.part1(), <span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="number">157</span>));
+    }
+
+    <span class="attribute">#[test]
+    </span><span class="kw">fn </span>example1_part2() {
+        <span class="kw">let </span>fs = LocalFilesystem{};
+        <span class="kw">let </span><span class="kw-2">mut </span>solver = Solution::new();
+        solver.read_lines(fs.read_file(<span class="string">&quot;tests/fixtures/day03&quot;</span>).unwrap());
+
         <span class="macro">assert_eq!</span>(solver.part2(), <span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="number">70</span>));
     }
 
