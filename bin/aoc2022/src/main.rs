@@ -63,7 +63,27 @@ fn get_solver(day: &Day) -> Box<dyn Solver> {
         Day::Day02 => Box::new(solution::day02::Solution::new()),
         Day::Day03 => Box::new(solution::day03::Solution::new()),
         Day::Day04 => Box::new(solution::day04::Solution::new()),
-        _ => Box::new(aoc::MissingSolution::new()),
+        Day::Day05 => Box::new(aoc::MissingSolution::new()),
+        Day::Day06 => Box::new(aoc::MissingSolution::new()),
+        Day::Day07 => Box::new(aoc::MissingSolution::new()),
+        Day::Day08 => Box::new(aoc::MissingSolution::new()),
+        Day::Day09 => Box::new(aoc::MissingSolution::new()),
+        Day::Day10 => Box::new(aoc::MissingSolution::new()),
+        Day::Day11 => Box::new(aoc::MissingSolution::new()),
+        Day::Day12 => Box::new(aoc::MissingSolution::new()),
+        Day::Day13 => Box::new(aoc::MissingSolution::new()),
+        Day::Day14 => Box::new(aoc::MissingSolution::new()),
+        Day::Day15 => Box::new(aoc::MissingSolution::new()),
+        Day::Day16 => Box::new(aoc::MissingSolution::new()),
+        Day::Day17 => Box::new(aoc::MissingSolution::new()),
+        Day::Day18 => Box::new(aoc::MissingSolution::new()),
+        Day::Day19 => Box::new(aoc::MissingSolution::new()),
+        Day::Day20 => Box::new(aoc::MissingSolution::new()),
+        Day::Day21 => Box::new(aoc::MissingSolution::new()),
+        Day::Day22 => Box::new(aoc::MissingSolution::new()),
+        Day::Day23 => Box::new(aoc::MissingSolution::new()),
+        Day::Day24 => Box::new(aoc::MissingSolution::new()),
+        Day::Day25 => Box::new(aoc::MissingSolution::new()),
     }
 }
 
@@ -196,5 +216,25 @@ mod tests {
 
         let answer = super::run(&args, &fs);
         assert!(answer.is_err());
+    }
+
+    // To make sure we load the right solver.
+    #[test]
+    fn get_solver() {
+        let days = vec![
+            (Day::Day01, true), (Day::Day02, true), (Day::Day03, true), (Day::Day04, true), (Day::Day05, false),
+            (Day::Day06, false), (Day::Day07, false), (Day::Day08, false), (Day::Day09, false), (Day::Day10, false),
+            (Day::Day11, false), (Day::Day12, false), (Day::Day13, false), (Day::Day14, false), (Day::Day15, false),
+            (Day::Day16, false), (Day::Day17, false), (Day::Day18, false), (Day::Day19, false), (Day::Day20, false),
+            (Day::Day21, false), (Day::Day22, false), (Day::Day23, false), (Day::Day24, false), (Day::Day25, false),
+        ];
+
+        for (day, implemented) in days {
+            if implemented {
+                assert_eq!(super::get_solver(&day).name(), &format!("day{}::Solution", day))
+            } else {
+                assert_eq!(super::get_solver(&day).name(), "MissingSolution")
+            }
+        }
     }
 }

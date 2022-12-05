@@ -6,6 +6,7 @@ pub mod range;
 pub mod range_pair;
 
 pub trait Solver {
+    fn name(&self) -> &'static str;
     fn read_lines(&mut self, lines: Vec<String>);
     fn part1(&self) -> String;
     fn part2(&self) -> String;
@@ -14,6 +15,10 @@ pub trait Solver {
 pub struct MissingSolution {}
 
 impl Solver for MissingSolution {
+    fn name(&self) -> &'static str {
+        "MissingSolution"
+    }
+
     fn read_lines(&mut self, _: Vec<String>) {
         todo!()
     }
