@@ -64,6 +64,25 @@ def update_runner(day: int):
         f.write(new_content)
 
 
+def update_runner_test(day: int):
+    fpath = 'bin/aoc2022/src/main.rs'
+    with open(fpath) as f:
+        content = f.read()
+
+    match_line = f'(Day::Day{day:02d}, true)'
+    marker = f'(Day::Day{day:02d}, false)'
+
+    if match_line in content:
+        return
+
+    print(f'Enable Day{day:02d} in aoc2022 tests')
+
+    new_content = content.replace(marker, match_line)
+
+    with open(fpath, 'w', newline='\n', encoding="utf-8") as f:
+        f.write(new_content)
+
+
 if len(sys.argv) < 2:
     print(f"{sys.argv[0]} <day>")
     sys.exit(1)
@@ -73,3 +92,4 @@ target_day = int(sys.argv[1])
 write_day_mod(target_day)
 update_lib(target_day)
 update_runner(target_day)
+update_runner_test(target_day)
