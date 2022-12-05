@@ -1,3 +1,36 @@
+/// Day ${day}: NAME
+///
+/// DESCRIPTION
+///
+/// URL: <https://adventofcode.com/2022/day/${day}>
+///
+/// # Part 1
+///
+/// ```
+/// use aoc::Solver;
+///
+/// let lines: Vec<&str> = vec![
+/// ];
+///
+/// let mut solver = solution::day${padded_day}::Solution::new();
+/// solver.read_lines(lines.iter().map(|s| s.to_string()).collect());
+///
+/// let part1_solution = solver.part1();
+/// ```
+///
+/// # Part 2
+///
+/// ```
+/// use aoc::Solver;
+///
+/// let lines: Vec<&str> = vec![
+/// ];
+///
+/// let mut solver = solution::day${padded_day}::Solution::new();
+/// solver.read_lines(lines.iter().map(|s| s.to_string()).collect());
+///
+/// let part2_solution = solver.part2();
+/// ```
 #[derive(Default)]
 pub struct Solution { }
 
@@ -37,12 +70,20 @@ mod tests {
     }
 
     #[test]
-    fn example1() {
+    fn example1_part1() {
         let fs = LocalFilesystem{};
         let mut solver = Solution::new();
         solver.read_lines(fs.read_file("tests/fixtures/day${padded_day}").unwrap());
 
         assert_eq!(solver.part1(), format!("{}", 0));
+    }
+
+    #[test]
+    fn example1_part2() {
+        let fs = LocalFilesystem{};
+        let mut solver = Solution::new();
+        solver.read_lines(fs.read_file("tests/fixtures/day${padded_day}").unwrap());
+
         assert_eq!(solver.part2(), format!("{}", 0));
     }
 }

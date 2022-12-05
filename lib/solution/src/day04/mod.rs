@@ -45,13 +45,13 @@ impl aoc::Solver for Solution {
         self.groups = pairs;
     }
 
-    fn part1(&self) -> String {
+    fn part1(&mut self) -> String {
         let useless_pairs: usize = self.groups.iter().flat_map(|s| s.useless()).count();
 
         format!("{}", useless_pairs)
     }
 
-    fn part2(&self) -> String {
+    fn part2(&mut self) -> String {
         let overlap_pairs: usize = self.groups.iter().filter(|s| s.overlap()).count();
 
         format!("{}", overlap_pairs)
@@ -77,12 +77,20 @@ mod tests {
     }
 
     #[test]
-    fn example1() {
+    fn example1_part1() {
         let fs = LocalFilesystem{};
         let mut solver = Solution::new();
         solver.read_lines(fs.read_file("tests/fixtures/day04").unwrap());
 
         assert_eq!(solver.part1(), format!("{}", 2));
+    }
+
+    #[test]
+    fn example1_part2() {
+        let fs = LocalFilesystem{};
+        let mut solver = Solution::new();
+        solver.read_lines(fs.read_file("tests/fixtures/day04").unwrap());
+
         assert_eq!(solver.part2(), format!("{}", 4));
     }
 }

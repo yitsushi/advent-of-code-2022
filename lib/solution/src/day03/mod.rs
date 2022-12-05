@@ -54,7 +54,7 @@ impl aoc::Solver for Solution {
         }
     }
 
-    fn part1(&self) -> String {
+    fn part1(&mut self) -> String {
         let result: i32 = self.rucksacks
             .iter()
             .map(|sack| sack.misplaced_items())
@@ -65,7 +65,7 @@ impl aoc::Solver for Solution {
         format!("{}", result)
     }
 
-    fn part2(&self) -> String {
+    fn part2(&mut self) -> String {
         let mut chunks: Vec<Vec<Rucksack>> = Vec::new();
 
         for i in 0..(self.rucksacks.len()/3) {
@@ -145,12 +145,20 @@ mod tests {
     }
 
     #[test]
-    fn example1() {
+    fn example1_part1() {
         let fs = LocalFilesystem{};
         let mut solver = Solution::new();
         solver.read_lines(fs.read_file("tests/fixtures/day03").unwrap());
 
         assert_eq!(solver.part1(), format!("{}", 157));
+    }
+
+    #[test]
+    fn example1_part2() {
+        let fs = LocalFilesystem{};
+        let mut solver = Solution::new();
+        solver.read_lines(fs.read_file("tests/fixtures/day03").unwrap());
+
         assert_eq!(solver.part2(), format!("{}", 70));
     }
 

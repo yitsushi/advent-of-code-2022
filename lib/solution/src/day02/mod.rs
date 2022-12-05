@@ -48,7 +48,7 @@ impl aoc::Solver for Solution {
         self.plays = plays
     }
 
-    fn part1(&self) -> String {
+    fn part1(&mut self) -> String {
         let score: i32 = self.plays
             .iter()
             .map(|play| play.score_part1() )
@@ -57,7 +57,7 @@ impl aoc::Solver for Solution {
         score.to_string()
     }
 
-    fn part2(&self) -> String {
+    fn part2(&mut self) -> String {
         let score: i32 = self.plays
             .iter()
             .map(|play| play.score() )
@@ -87,12 +87,20 @@ mod tests {
     }
 
     #[test]
-    fn example1() {
+    fn example1_part1() {
         let fs = LocalFilesystem{};
         let mut solver = Solution::new();
         solver.read_lines(fs.read_file("tests/fixtures/day02").unwrap());
 
         assert_eq!(solver.part1(), format!("{}", 15));
+    }
+
+    #[test]
+    fn example1_part2() {
+        let fs = LocalFilesystem{};
+        let mut solver = Solution::new();
+        solver.read_lines(fs.read_file("tests/fixtures/day02").unwrap());
+
         assert_eq!(solver.part2(), format!("{}", 12));
     }
 }

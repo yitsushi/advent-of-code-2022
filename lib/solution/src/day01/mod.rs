@@ -53,11 +53,11 @@ impl aoc::Solver for Solution {
         self.elves = elfs
     }
 
-    fn part1(&self) -> String {
+    fn part1(&mut self) -> String {
         format!("{}", self.elves[0].sum)
     }
 
-    fn part2(&self) -> String {
+    fn part2(&mut self) -> String {
         let sum: i64 = self.elves[..3].iter().map(|e| e.sum).sum();
 
         format!("{}", sum)
@@ -161,12 +161,20 @@ mod tests {
     }
 
     #[test]
-    fn example1() {
+    fn example1_part1() {
         let fs = LocalFilesystem{};
         let mut solver = Solution::new();
         solver.read_lines(fs.read_file("tests/fixtures/day01").unwrap());
 
         assert_eq!(solver.part1(), format!("{}", 24000));
+    }
+
+    #[test]
+    fn example1_part2() {
+        let fs = LocalFilesystem{};
+        let mut solver = Solution::new();
+        solver.read_lines(fs.read_file("tests/fixtures/day01").unwrap());
+
         assert_eq!(solver.part2(), format!("{}", 45000));
     }
 }
