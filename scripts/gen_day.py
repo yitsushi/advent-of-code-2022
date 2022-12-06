@@ -4,10 +4,6 @@ import sys
 from string import Template
 
 
-def path(day: int) -> (str, str):
-    return
-
-
 def write_day_mod(day: int):
     dir_path = f'lib/solution/src/day{day:02d}'
     file_path =f'lib/solution/src/day{day:02d}/mod.rs'
