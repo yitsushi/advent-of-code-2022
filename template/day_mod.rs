@@ -43,11 +43,11 @@ impl aoc::Solver for Solution {
         todo!()
     }
 
-    fn part1(&self) -> String {
+    fn part1(&mut self) -> String {
         todo!()
     }
 
-    fn part2(&self) -> String {
+    fn part2(&mut self) -> String {
         todo!()
     }
 }
