@@ -15,6 +15,11 @@ generate_day%:
 readme_day%:
 	python $(ROOT_DIR)/scripts/gen_readme.py $*
 
+fs-check:
+	python $(ROOT_DIR)/scripts/fs-check.py
+
+quality-check: test clippy fs-check
+
 docs:
 	cargo clean --doc
 	cargo doc --no-deps --workspace
