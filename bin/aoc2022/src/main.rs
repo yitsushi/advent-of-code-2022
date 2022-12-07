@@ -65,7 +65,7 @@ fn get_solver(day: &Day) -> Box<dyn Solver> {
         Day::Day04 => Box::new(solution::day04::Solution::new()),
         Day::Day05 => Box::new(solution::day05::Solution::new()),
         Day::Day06 => Box::new(solution::day06::Solution::new()),
-        Day::Day07 => Box::new(aoc::MissingSolution::new()),
+        Day::Day07 => Box::new(solution::day07::Solution::new()),
         Day::Day08 => Box::new(aoc::MissingSolution::new()),
         Day::Day09 => Box::new(aoc::MissingSolution::new()),
         Day::Day10 => Box::new(aoc::MissingSolution::new()),
@@ -223,7 +223,7 @@ mod tests {
     fn get_solver() {
         let days = vec![
             (Day::Day01, true), (Day::Day02, true), (Day::Day03, true), (Day::Day04, true), (Day::Day05, true),
-            (Day::Day06, true), (Day::Day07, false), (Day::Day08, false), (Day::Day09, false), (Day::Day10, false),
+            (Day::Day06, true), (Day::Day07, true), (Day::Day08, false), (Day::Day09, false), (Day::Day10, false),
             (Day::Day11, false), (Day::Day12, false), (Day::Day13, false), (Day::Day14, false), (Day::Day15, false),
             (Day::Day16, false), (Day::Day17, false), (Day::Day18, false), (Day::Day19, false), (Day::Day20, false),
             (Day::Day21, false), (Day::Day22, false), (Day::Day23, false), (Day::Day24, false), (Day::Day25, false),
