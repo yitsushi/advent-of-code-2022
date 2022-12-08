@@ -6,7 +6,8 @@ from string import Template
 
 
 def gen(day: int, part: int) -> str:
-    cmd = f"cargo run --quiet -- --day={day} --part={part} --time-it"
+    # cmd = f"cargo run --quiet -- --day={day} --part={part} --time-it"
+    cmd = f"./target/release/aoc2022 --day={day} --part={part} --time-it"
     result = subprocess.run(cmd.split(" "), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     return clear(result.stdout.decode('utf-8'))
 
