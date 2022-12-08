@@ -7,8 +7,8 @@ cargo run -- --day=4 --part=1 --time-it
 ```
 
 ```text
- -- Bootstrap solver: 1.828352ms
- -- Solution: 62.316µs
+ -- Bootstrap solver: 157.733µs
+ -- Solution: 7.676µs
 490
 ```
 
@@ -19,7 +19,7 @@ cargo run -- --day=4 --part=2 --time-it
 ```
 
 ```text
- -- Bootstrap solver: 1.805033ms
- -- Solution: 52.065µs
+ -- Bootstrap solver: 215.227µs
+ -- Solution: 12.293µs
 921
 ```

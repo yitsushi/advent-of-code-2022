@@ -12,7 +12,7 @@ test:
 generate_day%:
 	python $(ROOT_DIR)/scripts/gen_day.py $*
 
-readme_day%:
+readme_day%: build
 	python $(ROOT_DIR)/scripts/gen_readme.py $*
 
 fs-check:
