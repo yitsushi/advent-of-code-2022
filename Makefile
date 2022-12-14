@@ -34,14 +34,14 @@ codecov:
 	CARGO_INCREMENTAL=0 \
 		RUSTFLAGS='-Cinstrument-coverage' \
 		LLVM_PROFILE_FILE="$(ROOT_DIR)/target/cov/cargo-test-%p-%m.profraw" \
-		cargo test --workspace
+		cargo test --workspace --profile=codecov
 
 	grcov . \
 		-s $(ROOT_DIR)/ \
-		--binary-path ./target/debug/ \
+		--binary-path ./target/codecov/ \
 		-t html \
 		--branch \
 		--ignore-not-existing \
-		-o $(ROOT_DIR)/target/debug/coverage/
+		-o $(ROOT_DIR)/target/codecov/coverage/
 
-	xdg-open $(ROOT_DIR)/target/debug/coverage/index.html
+	xdg-open $(ROOT_DIR)/target/codecov/coverage/index.html

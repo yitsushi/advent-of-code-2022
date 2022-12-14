@@ -2,3 +2,5 @@
 members = ["lib/*", "bin/*"]
 default-members = ["bin/aoc2022"]
 
+[profile.codecov]
+inherits = "test"
