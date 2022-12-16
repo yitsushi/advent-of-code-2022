@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":[["abs",""]],"struct":[["Vec2D",""]]};

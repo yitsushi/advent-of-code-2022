@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["Solution","Day 12: Hill Climbing Algorithm"]]};
