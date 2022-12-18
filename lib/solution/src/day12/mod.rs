@@ -90,6 +90,7 @@ impl aoc::Solver for Solution {
             |c| c == self.end,
             |from, to| from + 1 >= to,
         );
+        println!("{}", self.map);
         match result {
             None => "solution not found".to_string(),
             Some(v) => format!("{}", v),

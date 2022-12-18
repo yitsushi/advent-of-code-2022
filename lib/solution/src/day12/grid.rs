@@ -1,4 +1,5 @@
 use std::collections::{HashMap, BinaryHeap};
+use aoc::grid_helper;
 
 use aoc::math::Vec2D;
 use super::state::State;
@@ -76,26 +77,16 @@ impl Grid {
 
 impl std::fmt::Display for Grid {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let mut min_coordinate = Vec2D::default();
-        let mut max_coordinate = Vec2D::default();
+        let list = self.fields.keys().cloned().collect::<Vec<Vec2D<i64>>>();
+        let (min_coordinate, max_coordinate) = grid_helper::min_max_coordinates(list);
 
-        for item in self.fields.keys() {
-            if item.x < min_coordinate.x { min_coordinate.x = item.x }
-            if item.y < min_coordinate.y { min_coordinate.y = item.y }
-            if item.x > max_coordinate.x { max_coordinate.x = item.x }
-            if item.y > max_coordinate.y { max_coordinate.y = item.y }
-        }
-
-        let lines = (min_coordinate.y..=max_coordinate.y).map(|y| {
-            (min_coordinate.x..=max_coordinate.x).map(|x| {
-                let pos = Vec2D::new(x, y);
-                if let Some(v) = self.fields.get(&pos) {
-                    (v + 0x61) as char
-                } else {
-                    '.'
-                }
-            }).collect::<String>()
-        }).collect::<Vec<String>>();
+        let lines = grid_helper::display_i64(min_coordinate, max_coordinate, |pos| {
+            if let Some(v) = self.fields.get(&pos) {
+                (v + 0x61) as char
+            } else {
+                '.'
+            }
+        });
 
         write!(f, "{}", lines.join("\n"))
     }
