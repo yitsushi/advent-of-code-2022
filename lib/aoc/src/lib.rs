@@ -5,6 +5,7 @@ pub mod io;
 pub mod range;
 pub mod range_pair;
 pub mod math;
+pub mod grid_helper;
 
 pub trait Solver {
     fn name(&self) -> &'static str;
