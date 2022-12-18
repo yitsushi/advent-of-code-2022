@@ -156,6 +156,7 @@
 <span id="156">156</span>
 <span id="157">157</span>
 <span id="158">158</span>
+<span id="159">159</span>
 </pre><pre class="rust"><code><span class="kw">use </span>aoc::math::Vec2D;
 
 <span class="kw">use </span><span class="self">self</span>::grid::Grid;
@@ -248,6 +249,7 @@
             |c| c == <span class="self">self</span>.end,
             |from, to| from + <span class="number">1 </span>&gt;= to,
         );
+        <span class="macro">println!</span>(<span class="string">&quot;{}&quot;</span>, <span class="self">self</span>.map);
         <span class="kw">match </span>result {
             <span class="prelude-val">None </span>=&gt; <span class="string">&quot;solution not found&quot;</span>.to_string(),
             <span class="prelude-val">Some</span>(v) =&gt; <span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, v),
