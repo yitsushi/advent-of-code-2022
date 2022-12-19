@@ -228,7 +228,7 @@ mod tests {
             "#oo..",
             "#ooo.",
             "#####",
-        ].join("\n").to_string();
+        ].join("\n");
 
         assert_eq!(format!("{}", grid), expected);
     }
