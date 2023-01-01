@@ -74,7 +74,7 @@ fn get_solver(day: &Day) -> Box<dyn Solver> {
         Day::Day13 => Box::new(solution::day13::Solution::new()),
         Day::Day14 => Box::new(solution::day14::Solution::new()),
         Day::Day15 => Box::new(solution::day15::Solution::new()),
-        Day::Day16 => Box::new(aoc::MissingSolution::new()),
+        Day::Day16 => Box::new(solution::day16::Solution::new()),
         Day::Day17 => Box::new(aoc::MissingSolution::new()),
         Day::Day18 => Box::new(aoc::MissingSolution::new()),
         Day::Day19 => Box::new(aoc::MissingSolution::new()),
@@ -225,7 +225,7 @@ mod tests {
             (Day::Day01, true), (Day::Day02, true), (Day::Day03, true), (Day::Day04, true), (Day::Day05, true),
             (Day::Day06, true), (Day::Day07, true), (Day::Day08, true), (Day::Day09, true), (Day::Day10, true),
             (Day::Day11, true), (Day::Day12, true), (Day::Day13, true), (Day::Day14, true), (Day::Day15, true),
-            (Day::Day16, false), (Day::Day17, false), (Day::Day18, false), (Day::Day19, false), (Day::Day20, false),
+            (Day::Day16, true), (Day::Day17, false), (Day::Day18, false), (Day::Day19, false), (Day::Day20, false),
             (Day::Day21, false), (Day::Day22, false), (Day::Day23, false), (Day::Day24, false), (Day::Day25, false),
         ];
 
